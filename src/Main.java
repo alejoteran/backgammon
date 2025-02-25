@@ -16,6 +16,8 @@ public class Main {
             if (turno) {
                 System.out.println("Estado actual del tablero:");
                 System.out.println(tablero);
+                System.out.println("Fichas blancas en la cárcel: " + tablero.getCarcelBlancas());
+                System.out.println("Fichas negras en la cárcel: " + tablero.getCarcelNegras());
 
                 System.out.println("Tu turno (blancas). Ingresa la posición de la ficha que deseas mover:");
                 int dado = random.nextInt(6) + 1;
@@ -52,6 +54,9 @@ public class Main {
 
             System.out.println("Estado actual del tablero:");
             System.out.println(tablero);
+            System.out.println("Fichas blancas en la cárcel: " + tablero.getCarcelBlancas());
+            System.out.println("Fichas negras en la cárcel: " + tablero.getCarcelNegras());
+
             System.out.println("\n\n\n");
             if (tablero.juegoTerminado()) {
                 break;

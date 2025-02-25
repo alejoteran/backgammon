@@ -174,6 +174,14 @@ public class Tablero {
         return nuevoTablero;
     }
 
+    public int getCarcelNegras() {
+        return carcelNegras;
+    }
+
+    public int getCarcelBlancas() {
+        return carcelBlancas;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
