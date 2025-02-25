@@ -1,4 +1,3 @@
-import java.net.StandardSocketOptions;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,28 +21,33 @@ public class Main {
                 int dado = random.nextInt(6) + 1;
                 System.out.println("El valor del dado es: " + dado);
 
-                int posicion;
-                int nuevaPosicion;
-                do {
-                    posicion = scanner.nextInt();
+                if (tablero.hayFichasEnCarcel(true)) {
+                    tablero.liberarFicha(dado, true);
+                } else {
+                    int posicion;
+                    int nuevaPosicion;
+                    do {
+                        posicion = scanner.nextInt();
+                        nuevaPosicion = posicion - dado;
 
-                    nuevaPosicion = posicion + dado;
-
-                    if (tablero.esMovimientoValido(posicion, nuevaPosicion, true)) {
-                        tablero.tablero[posicion].setNumero(tablero.tablero[posicion].getNumero() - 1);
-                        tablero.tablero[nuevaPosicion].setNumero(tablero.tablero[nuevaPosicion].getNumero() + 1);
-                    } else {
-                        System.out.println("Movimiento inválido. Intenta de nuevo.");
-                    }
-                } while (!tablero.esMovimientoValido(posicion, nuevaPosicion, true));
-
+                        if (tablero.esMovimientoValido(posicion, nuevaPosicion, true)) {
+                            tablero.moverFicha(posicion, nuevaPosicion, true);
+                        } else {
+                            System.out.println("Movimiento inválido. Intenta de nuevo.");
+                        }
+                    } while (!tablero.esMovimientoValido(posicion, nuevaPosicion, true));
+                }
 
             } else {
                 System.out.println("Turno de la IA:");
-                Movimiento movimientoIA = minMax.minMax(tablero, 2, false);
-                tablero = movimientoIA.getTablero();
-                System.out.println("La IA movió de la posición " + movimientoIA.getOrigen() + " a la posición " + movimientoIA.getDestino() + " con el dado de valor " + movimientoIA.getDado());
-
+                int dado = random.nextInt(6) + 1;
+                if (tablero.hayFichasEnCarcel(false)) {
+                    tablero.liberarFicha(dado, false);
+                } else {
+                    Movimiento movimientoIA = minMax.minMax(tablero, 2, false);
+                    tablero.moverFicha(movimientoIA.getOrigen(), movimientoIA.getDestino(), false);
+                    System.out.println("La IA movió de la posición " + movimientoIA.getOrigen() + " a la posición " + movimientoIA.getDestino() + " con el dado de valor " + movimientoIA.getDado());
+                }
             }
 
             System.out.println("Estado actual del tablero:");
